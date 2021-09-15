@@ -1,0 +1,6 @@
+rootProject.name = 'user-preferences'
+include 'gateway'
+include 'discovery'
+include 'user-pref-read'
+include 'user-pref-write'
+

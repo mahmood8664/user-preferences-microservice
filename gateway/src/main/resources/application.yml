@@ -1,0 +1,24 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - StripPrefix=1
+      routes:
+        - id: user-pref-read-service
+          predicates:
+          - Path=/user-pref-read-service/**
+          uri: lb://user-pref-read-service
+        - id: user-pref-write-service
+          predicates:
+          - Path=/user-pref-write-service/**
+          uri: lb://user-pref-write-service
+  application:
+    name: gateway
+  main:
+    web-application-type: reactive
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

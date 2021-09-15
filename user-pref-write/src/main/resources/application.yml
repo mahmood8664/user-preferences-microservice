@@ -1,0 +1,20 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: user-pref-write-service
+  data:
+    mongodb:
+      username: ${MONGO_USERNAME:mongo}
+      password: ${MONGO_PASSWORD:mongo}
+      host: ${MONGO_HOST:localhost}
+      port: ${MONGO_PORT:27017}
+      database: "user-pref"
+      authentication-database: "admin"
+      auto-index-creation: true
+  redis:
+    password: ${REDIS_PASSWORD:123456}
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
