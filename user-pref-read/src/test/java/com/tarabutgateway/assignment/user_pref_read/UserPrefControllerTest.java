@@ -42,7 +42,7 @@ public class UserPrefControllerTest {
     private UserPreferencesRepository repository;
 
     @Test
-    void testGetAllPref() throws Exception {
+    void getAllPreferencesTest() throws Exception {
 
         List<UserPreference> userPreferences = List.of(
                 UserPreference.builder()
@@ -69,7 +69,27 @@ public class UserPrefControllerTest {
     }
 
     @Test
-    void testUserPref() throws Exception {
+    void getUserPrefTest() throws Exception {
+
+        UserPreference userPreferences = UserPreference.builder()
+                .userId("1")
+                .marketingPreferences(List.of(MarketingChannel.EMAIL))
+                .build();
+        Mockito.when(repository.findById(ArgumentMatchers.any())).thenReturn(Optional.of(userPreferences));
+
+        ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.get("/api/v1/preferences/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        UserPreference response = jsonMapper.readValue(resultActions.andReturn().getResponse().getContentAsString(),
+                new TypeReference<>() {
+                });
+
+        Assertions.assertThat(response).isEqualTo(userPreferences);
+        Mockito.verify(repository, Mockito.times(1)).findById("1");
+    }
+
+    @Test
+    void userPref_UserNotFoundTest() throws Exception {
 
         UserPreference userPreferences = UserPreference.builder()
                 .userId("1")

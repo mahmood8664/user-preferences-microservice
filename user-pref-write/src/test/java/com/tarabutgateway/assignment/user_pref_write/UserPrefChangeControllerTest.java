@@ -86,4 +86,22 @@ public class UserPrefChangeControllerTest {
                 .build());
     }
 
+    @SneakyThrows
+    @Test
+    void deleteUserPrefNotFoundTest() {
+
+        UserPreference userPreference = UserPreference.builder()
+                .userId("1")
+                .marketingPreferences(List.of(MarketingChannel.EMAIL))
+                .build();
+
+        Mockito.when(repository.findById("1")).thenReturn(Optional.of(userPreference));
+        Mockito.when(repository.findById("123")).thenReturn(Optional.empty());
+
+        mvc.perform(MockMvcRequestBuilders.delete("/api/v1/user/preference/123")
+        ).andExpect(MockMvcResultMatchers.status().isNotFound());
+
+        Mockito.verify(repository, Mockito.times(1)).findById("123");
+    }
+
 }
