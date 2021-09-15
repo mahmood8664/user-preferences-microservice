@@ -56,6 +56,6 @@ I used the CQRS pattern to separate read and write in user marketing preferences
 When a user preference is changed through user-pref-write-service and event would dispatch 
 through **redis**. So other services (in this case user-pref-read-service) can update 
 its data. The better option is using **Kafka** instead of redis because it can persist 
-data so consumers cannot miss the events. 
+data so consumers may noy miss the events. 
 
 ![select service](./img/2.png)
