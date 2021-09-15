@@ -52,10 +52,10 @@ drop down list:
 2. **user-pref-read-service**: Microservice to query preferences.
 
 ## Architecture
-I used the CQRS pattern to separate read and write in user marketing preferences. 
-When a user preference is changed through user-pref-write-service then event would dispatch 
-through **redis** as our event bud. So other services (in this case user-pref-read-service) can update 
-their data. The better option is using **Kafka** instead of redis because it can persist 
-data so consumers cannot miss the events. 
+I used the CQRS pattern to separate read and write in user marketing preferences.
+When a user preference is changed through user-pref-write-service then event would dispatch
+through **redis** as our event bud. So other services (in this case user-pref-read-service) can update
+their data. The better option is using **Kafka** instead of redis because it can persist
+data so consumers may not miss the events. 
 
 ![select service](./img/2.png)
