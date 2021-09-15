@@ -17,17 +17,6 @@ Technical Requirements:
 - Code must compile and run
 - README to explain how to compile and run
 
-## How we evaluate
-- Design approach
-- Feature completeness - no feature should be incomplete. If for some reason all
-features could not be completed, please submit only those that are complete.
-- Code quality
-- Unit Test Coverage
-- Able to deploy docker containers on local
-- Working application
-## Advantage:
-Kubernetes native development and inclusion of kubernetes deployment files.
-
 
 ## Prerequisites
 
