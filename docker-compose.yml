@@ -1,0 +1,44 @@
+#Dockercompose file for deploying user-marketing-preferences microservice
+version: '3.5'
+services:
+  discovery:
+    build: ./discovery
+    container_name: discovery
+    restart: always
+  gateway:
+    build: ./gateway
+    container_name: gateway
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - discovery
+  mymongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+  redis:
+    image: redis
+    container_name: redis
+    restart: always
+  user_pref_write:
+    build: ./user-pref-write
+    container_name: user_pref_write_ms
+    restart: always
+    depends_on:
+      - discovery
+      - gateway
+      - mymongodb
+      - redis
+  user_pref_read:
+    build: ./user-pref-read
+    container_name: user_pref_read_ms
+    restart: always
+    depends_on:
+      - discovery
+      - gateway
+      - mymongodb
+      - redis
+networks:
+    default:
+      name: user_pref
